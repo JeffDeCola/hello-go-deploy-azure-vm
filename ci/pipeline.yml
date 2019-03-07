@@ -1,0 +1,185 @@
+# hello-go-deploy-azure pipeline.yml
+
+jobs:
+
+- name: job-readme-github-pages
+  plan:
+  - get: hello-go-deploy-azure
+    trigger: true
+  - put: resource-slack-alert
+    params:
+      channel: '#jeff-builds'
+      text: "From hello-go-deploy-azure: STARTED job-readme-github-pages in concourse ci."
+  - put: resource-repo-status
+    params: { state: "pending", description: "STARTED job-readme-github-pages in concourse ci.", commit: "hello-go-deploy-azure" }
+  - task: task-readme-github-pages
+    file: hello-go-deploy-azure/ci/tasks/task-readme-github-pages.yml
+    on_success:
+      do:
+      - put: hello-go-deploy-azure
+        params:
+          repository: hello-go-deploy-azure-updated  
+      - put: resource-slack-alert
+        params:
+          channel: '#jeff-builds'
+          text: "From hello-go-deploy-azure: PASSED job-readme-github-pages in concourse ci."
+      - put: resource-repo-status
+        params: { state: "success", description: "PASSED job-readme-github-pages in concourse ci", commit: "hello-go-deploy-azure" }
+    on_failure:
+      do:
+      - put: resource-slack-alert
+        params:
+          channel: '#jeff-builds'
+          text: "From hello-go-deploy-azure: FAILED job-readme-github-pages in concourse ci."
+      - put: resource-repo-status
+        params: { state: "failure", description: "FAILED job-readme-github-pages in concourse ci", commit: "hello-go-deploy-azure" }
+
+- name: job-unit-tests
+  plan:
+  - get: hello-go-deploy-azure
+    trigger: true
+    passed: [job-readme-github-pages]
+  - put: resource-slack-alert
+    params:
+      channel: '#jeff-builds'
+      text: "From hello-go-deploy-azure: STARTED job-unit-tests in concourse ci."
+  - put: resource-repo-status
+    params: { state: "pending", description: "STARTED job-unit-tests in concourse ci.", commit: "hello-go-deploy-azure" }
+  - task: task-unit-tests
+    file: hello-go-deploy-azure/ci/tasks/task-unit-tests.yml
+    on_success:
+      do:
+      - put: hello-go-deploy-azure
+        params:
+          repository: hello-go-deploy-azure  
+      - put: resource-slack-alert
+        params:
+          channel: '#jeff-builds'
+          text_file: coverage-results/test_coverage.txt
+          text: |
+            From hello-go-deploy-azure: PASSED job-unit-tests in concourse ci. 
+            $TEXT_FILE_CONTENT
+      - put: resource-repo-status
+        params: { state: "success", description: "PASSED job-unit-tests in concourse ci", commit: "hello-go-deploy-azure" }
+    on_failure:
+      do:
+      - put: resource-slack-alert
+        params:
+          channel: '#jeff-builds'
+          text: "From hello-go-deploy-azure: FAILED job-unit-tests in concourse ci."
+      - put: resource-repo-status
+        params: { state: "failure", description: "FAILED job-unit-tests in concourse ci.", commit: "hello-go-deploy-azure" }
+
+- name: job-build
+  plan:
+    - get: hello-go-deploy-azure
+      trigger: true
+      passed: [job-unit-tests]
+    - put: resource-slack-alert
+      params:
+        channel: '#jeff-builds'
+        text: "From hello-go-deploy-azure: STARTED job-build in concourse ci."
+    - put: resource-repo-status
+      params: { state: "pending", description: "STARTED job-build in concourse ci.", commit: "hello-go-deploy-azure" }
+    - task: task-build
+      file: hello-go-deploy-azure/ci/tasks/task-build.yml
+    - put: resource-dump-to-dockerhub
+      params: { build: "dist"}
+      on_success:
+        do:
+        - put: resource-slack-alert
+          params:
+            channel: '#jeff-builds'
+            text: "From hello-go-deploy-azure: PASSED job-build in concourse ci."
+        - put: resource-repo-status
+          params: { state: "pending", description: "PASSED job-build in concourse ci.", commit: "hello-go-deploy-azure" }
+      on_failure:
+        do:
+        - put: resource-slack-alert
+          params:
+            channel: '#jeff-builds'
+            text: "From hello-go-deploy-azure: FAILED job-build in concourse ci."
+        - put: resource-repo-status
+          params: { state: "failure", description: "FAILED job-build in concourse ci.", commit: "hello-go-deploy-azure" }
+
+- name: job-deploy
+  plan:
+    - get: hello-go-deploy-azure
+      trigger: true
+      passed: [job-build]
+    - put: resource-slack-alert
+      params:
+        channel: '#jeff-builds'
+        text: "From hello-go-deploy-azure: STARTED job-deploy in concourse ci."
+    - put: resource-repo-status
+      params: { state: "pending", description: "STARTED job-deploy in concourse ci.", commit: "hello-go-deploy-azure" }
+    - task: task-deploy
+      file: hello-go-deploy-azure/ci/tasks/task-deploy.yml   
+    - put: resource-marathon
+      params: {app_json: "hello-go-deploy-azure/app.json", time_out: 10}      
+      on_success:
+        do:
+        - put: resource-slack-alert
+          params:
+            channel: '#jeff-builds'
+            text: "From hello-go-deploy-azure: PASSED job-deploy in concourse ci."
+        - put: resource-repo-status
+          params: { state: "success", description: "PASSED job-deploy in concourse ci.", commit: "hello-go-deploy-azure" }
+      on_failure:
+        do:
+        - put: resource-slack-alert
+          params:
+            channel: '#jeff-builds'
+            text: "From hello-go-deploy-azure: FAILED job-deploy in concourse ci."
+        - put: resource-repo-status
+          params: { state: "failure", description: "FAILED job-deploy in concourse ci.", commit: "hello-go-deploy-azure" }
+
+resource_types:
+
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: latest
+- name: github-status
+  type: docker-image
+  source:
+    repository: dpb587/github-status-resource
+    tag: master
+- name: marathon-deploy
+  type: docker-image
+  source:
+   repository: ckaznocha/marathon-resource
+   tag: latest
+
+resources:
+
+- name: hello-go-deploy-azure
+  type: git
+  source:
+    #uri: https://github.com/jeffdecola/hello-go-deploy-azure
+    uri: git@github.com:jeffdecola/hello-go-deploy-azure.git
+    branch: master
+    private_key: {{git_private_key}}
+- name: resource-dump-to-dockerhub
+  type: docker-image
+  source:
+    repository: jeffdecola/hello-go-deploy-azure
+    tag: latest
+    username: jeffdecola
+    password: {{dockerhub_password}}
+- name: resource-slack-alert
+  type: slack-notification
+  source:
+    url: {{slack_url}} 
+- name: resource-repo-status 
+  type: github-status
+  source:
+    repository: jeffdecola/hello-go-deploy-azure 
+    access_token: {{repo_github_token}}
+- name: resource-marathon
+  type: marathon-deploy
+  source:
+    app_id: hello-go-deploy-azure-long-run
+    uri: http://10.141.141.10:8080
+    

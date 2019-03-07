@@ -1,0 +1,15 @@
+# hello-go-deploy-azure task-deploy.yml
+
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: golang
+    tag: 1.7.1
+
+inputs:
+- name: hello-go-deploy-azure
+
+run:
+  path: ./hello-go-deploy-azure/ci/scripts/deploy.sh

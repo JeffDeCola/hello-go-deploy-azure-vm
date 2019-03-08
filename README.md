@@ -7,7 +7,7 @@ For testing the deploy, I'm using using mesos/marathon.
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/hello-go-deploy-azure)](https://goreportcard.com/report/github.com/JeffDeCola/hello-go-deploy-azure)
 [![GoDoc](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-azure?status.svg)](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-azure)
-[![Maintainability](https://api.codeclimate.com/v1/badges/???????????????????/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0f0d6598d8861db99bb1/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure/maintainability)
 [![Issue Count](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 

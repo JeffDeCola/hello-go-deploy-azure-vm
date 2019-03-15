@@ -70,7 +70,7 @@ jobs:
       - put: resource-repo-status
         params: { state: "failure", description: "FAILED job-unit-tests in concourse ci.", commit: "hello-go-deploy-azure" }
 
-- name: job-build
+- name: job-build-push
   plan:
     - get: hello-go-deploy-azure
       trigger: true
@@ -78,11 +78,11 @@ jobs:
     - put: resource-slack-alert
       params:
         channel: '#jeff-builds'
-        text: "From hello-go-deploy-azure: STARTED job-build in concourse ci."
+        text: "From hello-go-deploy-azure: STARTED job-build-push in concourse ci."
     - put: resource-repo-status
-      params: { state: "pending", description: "STARTED job-build in concourse ci.", commit: "hello-go-deploy-azure" }
-    - task: task-build
-      file: hello-go-deploy-azure/ci/tasks/task-build.yml
+      params: { state: "pending", description: "STARTED job-build-push in concourse ci.", commit: "hello-go-deploy-azure" }
+    - task: task-build-push
+      file: hello-go-deploy-azure/ci/tasks/task-build-push.yml
     - put: resource-dump-to-dockerhub
       params: { build: "dist"}
       on_success:
@@ -90,23 +90,23 @@ jobs:
         - put: resource-slack-alert
           params:
             channel: '#jeff-builds'
-            text: "From hello-go-deploy-azure: PASSED job-build in concourse ci."
+            text: "From hello-go-deploy-azure: PASSED job-build-push in concourse ci."
         - put: resource-repo-status
-          params: { state: "pending", description: "PASSED job-build in concourse ci.", commit: "hello-go-deploy-azure" }
+          params: { state: "pending", description: "PASSED job-build-push in concourse ci.", commit: "hello-go-deploy-azure" }
       on_failure:
         do:
         - put: resource-slack-alert
           params:
             channel: '#jeff-builds'
-            text: "From hello-go-deploy-azure: FAILED job-build in concourse ci."
+            text: "From hello-go-deploy-azure: FAILED job-build-push in concourse ci."
         - put: resource-repo-status
-          params: { state: "failure", description: "FAILED job-build in concourse ci.", commit: "hello-go-deploy-azure" }
+          params: { state: "failure", description: "FAILED job-build-push in concourse ci.", commit: "hello-go-deploy-azure" }
 
 - name: job-deploy
   plan:
     - get: hello-go-deploy-azure
       trigger: true
-      passed: [job-build]
+      passed: [job-build-push]
     - put: resource-slack-alert
       params:
         channel: '#jeff-builds'
@@ -114,9 +114,9 @@ jobs:
     - put: resource-repo-status
       params: { state: "pending", description: "STARTED job-deploy in concourse ci.", commit: "hello-go-deploy-azure" }
     - task: task-deploy
-      file: hello-go-deploy-azure/ci/tasks/task-deploy.yml   
+      file: hello-go-deploy-azure/ci/tasks/task-deploy.yml
     - put: resource-marathon
-      params: {app_json: "hello-go-deploy-azure/app.json", time_out: 10}      
+      params: {app_json: "hello-go-deploy-azure/deploy/app.json", time_out: 10}
       on_success:
         do:
         - put: resource-slack-alert

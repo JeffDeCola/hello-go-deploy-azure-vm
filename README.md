@@ -17,7 +17,7 @@ and deploy a long running "hello-world" Docker Image to Microsoft Azure._
 I also have other repos showing different deployments,
 
 * [hello-go-deploy-aws](https://github.com/JeffDeCola/hello-go-deploy-aws)
-* [hello-go-deploy-gca](https://github.com/JeffDeCola/hello-go-deploy-gca)
+* [hello-go-deploy-gae](https://github.com/JeffDeCola/hello-go-deploy-gae)
 * [hello-go-deploy-gce](https://github.com/JeffDeCola/hello-go-deploy-gce)
 * [hello-go-deploy-marathon](https://github.com/JeffDeCola/hello-go-deploy-marathon)
 

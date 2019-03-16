@@ -44,7 +44,7 @@ To push a docker image you will need,
 
 To deploy to microsoft azure you will need,
 
-* [microsoft azure](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/infrastructure-as-a-service/cloud-services-compute/microsoft-azure-cheat-sheet),
+* [microsoft azure](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/infrastructure-as-a-service/cloud-services-compute/microsoft-azure-cheat-sheet)
 
 As a bonus, you can use Concourse CI to run the scripts,
 

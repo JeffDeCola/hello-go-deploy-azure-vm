@@ -1,5 +1,5 @@
 #!/bin/sh
-# hello-go-deploy-azure build-push.sh
+# hello-go-deploy-azure-vm build-push.sh
 
 echo " "
 
@@ -16,7 +16,7 @@ else
     echo " "
 fi
 
-echo "cd up to /hello-go-deploy-azure"
+echo "cd up to /hello-go-deploy-azure-vm"
 cd ..
 echo " "
 
@@ -33,11 +33,11 @@ cd build-push
 echo " "
 
 echo "Build your docker image from binary /bin/hello-go using /build-push/Dockerfile"
-docker build -t jeffdecola/hello-go-deploy-azure .
+docker build -t jeffdecola/hello-go-deploy-azure-vm .
 echo " "
 
 echo "Assuming you are logged in, lets push your built docker image to DockerHub"
-docker push jeffdecola/hello-go-deploy-azure
+docker push jeffdecola/hello-go-deploy-azure-vm
 echo
 
 echo "build-push.sh -concoure -debug (END)"

@@ -1,5 +1,5 @@
 #!/bin/sh
-# hello-go-deploy-azure readme-github-pages.sh
+# hello-go-deploy-azure-vm readme-github-pages.sh
 
 echo " "
 
@@ -17,14 +17,14 @@ else
     echo " "
 fi
 
-echo "The goal is to git clone /hello-go-deploy-azure to /hello-go-deploy-azure-updated"
+echo "The goal is to git clone /hello-go-deploy-azure-vm to /hello-go-deploy-azure-vm-updated"
 echo "Then script will edit the /docs/_includes/README.md for GITHUB WEBPAGES"
 echo "Finally push the changes in /docs/_includes/README.md to github"
 echo " "
 
 echo "At start, you should be in a /tmp/build/xxxxx directory with two folders:"
-echo "   /hello-go-deploy-azure"
-echo "   /hello-go-deploy-azure-updated (created in task-build-push.yml task file)"
+echo "   /hello-go-deploy-azure-vm"
+echo "   /hello-go-deploy-azure-vm-updated (created in task-build-push.yml task file)"
 echo " "
 
 echo "pwd is: $PWD"
@@ -34,12 +34,12 @@ echo "List whats in the current directory"
 ls -la
 echo " "
 
-echo "git clone hello-go-deploy-azure to hello-go-deploy-azure-updated"
-git clone hello-go-deploy-azure hello-go-deploy-azure-updated
+echo "git clone hello-go-deploy-azure-vm to hello-go-deploy-azure-vm-updated"
+git clone hello-go-deploy-azure-vm hello-go-deploy-azure-vm-updated
 echo " "
 
-echo "cd hello-go-deploy-azure-updated"
-cd hello-go-deploy-azure-updated
+echo "cd hello-go-deploy-azure-vm-updated"
+cd hello-go-deploy-azure-vm-updated
 echo " "
 
 echo "List whats in the current directory"

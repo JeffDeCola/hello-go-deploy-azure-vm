@@ -1,5 +1,5 @@
 #!/bin/sh
-# hello-go-deploy-azure unit-test.sh
+# hello-go-deploy-azure-vm unit-test.sh
 
 echo " "
 
@@ -17,13 +17,13 @@ else
     echo " "
 fi
 
-echo "The goal is to set up a go src/github.com/JeffDeCola/hello-go-deploy-azure directory"
+echo "The goal is to set up a go src/github.com/JeffDeCola/hello-go-deploy-azure-vm directory"
 echo "Then tests will be run in that directory"
 echo "Test coverage results, text_coverage.txt, will be moved to /coverage-results directory"
 echo " "
 
 echo "At start, you should be in a /tmp/build/xxxxx directory with two folders:"
-echo "   /hello-go-deploy-azure"
+echo "   /hello-go-deploy-azure-vm"
 echo "   /coverage-results (created in task-unit-test.yml task file)"
 echo " "
 
@@ -38,14 +38,14 @@ echo "Setup the GOPATH based on current directory"
 export GOPATH=$PWD
 echo " "
 
-echo "Now we must move our code from the current directory ./hello-go-deploy-azure to" 
-echo "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-azure"
+echo "Now we must move our code from the current directory ./hello-go-deploy-azure-vm to" 
+echo "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-azure-vm"
 mkdir -p src/github.com/JeffDeCola/
-cp -R ./hello-go-deploy-azure src/github.com/JeffDeCola/.
+cp -R ./hello-go-deploy-azure-vm src/github.com/JeffDeCola/.
 echo " "
 
-echo "cd src/github.com/JeffDeCola/hello-go-deploy-azure"
-cd src/github.com/JeffDeCola/hello-go-deploy-azure
+echo "cd src/github.com/JeffDeCola/hello-go-deploy-azure-vm"
+cd src/github.com/JeffDeCola/hello-go-deploy-azure-vm
 echo " "
 
 echo "Check that you are set and everything is in the right place for go:"

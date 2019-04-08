@@ -1,34 +1,34 @@
-# hello-go-deploy-azure
+# hello-go-deploy-azure-vm
 
 ```text
 *** THE DEPLOY IS UNDER CONSTRUCTION - CHECK BACK SOON ***
 For testing the deploy, I'm using using mesos/marathon.
 ```
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/hello-go-deploy-azure)](https://goreportcard.com/report/github.com/JeffDeCola/hello-go-deploy-azure)
-[![GoDoc](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-azure?status.svg)](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-azure)
-[![Maintainability](https://api.codeclimate.com/v1/badges/0f0d6598d8861db99bb1/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure/maintainability)
-[![Issue Count](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure/issues)
+[![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/hello-go-deploy-azure-vm)](https://goreportcard.com/report/github.com/JeffDeCola/hello-go-deploy-azure-vm)
+[![GoDoc](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-azure-vm?status.svg)](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-azure-vm)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f37f4f30995de00721be/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/maintainability)
+[![Issue Count](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
-`hello-go-deploy-azure` _will test, build, push (to DockerHub) and deploy
+`hello-go-deploy-azure-vm` _will test, build, push (to DockerHub) and deploy
 a long running "hello-world" Docker Image to Microsoft Azure._
 
 I also have other repos showing different deployments,
 
 * [hello-go-deploy-aws](https://github.com/JeffDeCola/hello-go-deploy-aws)
-* hello-go-deploy-azure <- You are here!
+* hello-go-deploy-azure-vm <- You are here!
 * [hello-go-deploy-gae](https://github.com/JeffDeCola/hello-go-deploy-gae)
 * [hello-go-deploy-gce](https://github.com/JeffDeCola/hello-go-deploy-gce)
 * [hello-go-deploy-gke](https://github.com/JeffDeCola/hello-go-deploy-gke)
 * [hello-go-deploy-marathon](https://github.com/JeffDeCola/hello-go-deploy-marathon)
 
-The `hello-go-deploy-azure`
-[Docker Image](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure)
+The `hello-go-deploy-azure-vm`
+[Docker Image](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm)
 on DockerHub.
 
-The `hello-go-deploy-azure`
-[GitHub Webpage](https://jeffdecola.github.io/hello-go-deploy-azure/).
+The `hello-go-deploy-azure-vm`
+[GitHub Webpage](https://jeffdecola.github.io/hello-go-deploy-azure-vm/).
 
 ## PREREQUISITES
 
@@ -61,7 +61,7 @@ To run from the command line,
 go run main.go
 ```
 
-Every 2 seconds `hello-go-deploy-azure` will print:
+Every 2 seconds `hello-go-deploy-azure-vm` will print:
 
 ```bash
 Hello everyone, count is: 1
@@ -79,10 +79,10 @@ go test -cover ./... | tee /test/test_coverage.txt
 ```
 
 This script runs the above command
-[/test/unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/test/unit-tests.sh).
+[/test/unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/test/unit-tests.sh).
 
 This script runs the above command in concourse
-[/ci/scripts/unit-test.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/ci/scripts/unit-tests.sh).
+[/ci/scripts/unit-test.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/unit-tests.sh).
 
 ## STEP 2 - BUILD (DOCKER IMAGE)
 
@@ -107,7 +107,7 @@ Build your docker image from binary `hello-go`
 using `Dockerfile`,
 
 ```bash
-docker build -t jeffdecola/hello-go-deploy-azure .
+docker build -t jeffdecola/hello-go-deploy-azure-vm .
 ```
 
 Obviously, replace `jeffdecola` with your DockerHub username.
@@ -118,19 +118,19 @@ Check your docker images on your machine,
 docker images
 ```
 
-It will be listed as `jeffdecola/hello-go-deploy-azure`
+It will be listed as `jeffdecola/hello-go-deploy-azure-vm`
 
 You can test your dockerhub image,
 
 ```bash
-docker run jeffdecola/hello-go-deploy-azure
+docker run jeffdecola/hello-go-deploy-azure-vm
 ```
 
 This script runs the above commands
-[/build-push/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/build-push/build-push.sh).
+[/build-push/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/build-push/build-push.sh).
 
 This script runs the above commands in concourse
-[/ci/scripts/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/ci/scripts/build-push.sh).
+[/ci/scripts/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/build-push.sh).
 
 ## STEP 3 - PUSH (TO DOCKERHUB)
 
@@ -145,17 +145,17 @@ docker login
 Once logged in you can push,
 
 ```bash
-docker push jeffdecola/hello-go-deploy-azure
+docker push jeffdecola/hello-go-deploy-azure-vm
 ```
 
 Check you image at DockerHub. My image is located
-[https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure).
+[https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm).
 
 This script runs the above commands
-[/build-push/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/build-push/build-push.sh).
+[/build-push/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/build-push/build-push.sh).
 
 This script runs the above commands in concourse
-[/ci/scripts/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/ci/scripts/build-push.sh).
+[/ci/scripts/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/build-push.sh).
 
 ## STEP 4 - DEPLOY (TO AZURE)
 
@@ -171,34 +171,34 @@ There are ?? steps to deployment on azure,
 * tbd
 
 This script ???
-[/azure-deploy/????.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/azure-deploy/???.sh).
+[/azure-deploy/????.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/azure-deploy/???.sh).
 
 Lastly, this script runs all of the above commands in concourse
-[/ci/scripts/deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/ci/scripts/deploy.sh).
+[/ci/scripts/deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/deploy.sh).
 
 ## TEST, BUILT, PUSH & DEPLOY USING CONCOURSE (OPTIONAL)
 
 For fun, I use concourse to automate the above steps.
 
-A pipeline file [pipeline.yml](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/ci/pipeline.yml)
+A pipeline file [pipeline.yml](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/pipeline.yml)
 shows the entire ci flow. Visually, it looks like,
 
-![IMAGE - hello-go-deploy-azure concourse ci pipeline - IMAGE](docs/pics/hello-go-deploy-azure-pipeline.jpg)
+![IMAGE - hello-go-deploy-azure-vm concourse ci pipeline - IMAGE](docs/pics/hello-go-deploy-azure-vm-pipeline.jpg)
 
 The `jobs` and `tasks` are,
 
 * `job-readme-github-pages` runs task
-  [readme-github-pages.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/ci/scripts/readme-github-pages.sh).
+  [readme-github-pages.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/readme-github-pages.sh).
 * `job-unit-tests` runs task
-  [unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/ci/scripts/unit-tests.sh).
+  [unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/unit-tests.sh).
 * `job-build-push` runs task
-  [build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/ci/scripts/build-push.sh).
+  [build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/build-push.sh).
 * `job-deploy` runs task
-  [deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-azure/tree/master/ci/scripts/deploy.sh).
+  [deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/deploy.sh).
 
 The concourse `resources type` are,
 
-* `hello-go-deploy-azure` uses a resource type
+* `hello-go-deploy-azure-vm` uses a resource type
   [docker-image](https://hub.docker.com/r/concourse/git-resource/)
   to PULL a repo from github.
 * `resource-dump-to-dockerhub` uses a resource type

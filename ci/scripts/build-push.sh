@@ -1,5 +1,5 @@
 #!/bin/sh
-# hello-go-deploy-azure build-push.sh
+# hello-go-deploy-azure-vm build-push.sh
 
 echo " "
 
@@ -21,7 +21,7 @@ echo "The goal is to create a binary and place in /dist directory with a Dockerf
 echo "The concourse pipeline will build and push the docker image to DockerHub"
 echo " "
 echo "At start, you should be in a /tmp/build/xxxxx directory with two folders:"
-echo "   /hello-go-deploy-azure"
+echo "   /hello-go-deploy-azure-vm"
 echo "   /dist (created in task-build-push.yml task file)"
 echo " "
 echo "pwd is: $PWD"
@@ -34,14 +34,14 @@ echo "Setup the GOPATH based on current directory"
 export GOPATH=$PWD
 echo " "
 
-echo "Now we must move our code from the current directory ./hello-go-deploy-azure to" 
-echo "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-azure"
+echo "Now we must move our code from the current directory ./hello-go-deploy-azure-vm to" 
+echo "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-azure-vm"
 mkdir -p src/github.com/JeffDeCola/
-cp -R ./hello-go-deploy-azure src/github.com/JeffDeCola/.
+cp -R ./hello-go-deploy-azure-vm src/github.com/JeffDeCola/.
 echo " "
 
-echo "cd src/github.com/JeffDeCola/hello-go-deploy-azure"
-cd src/github.com/JeffDeCola/hello-go-deploy-azure
+echo "cd src/github.com/JeffDeCola/hello-go-deploy-azure-vm"
+cd src/github.com/JeffDeCola/hello-go-deploy-azure-vm
 echo " "
 
 echo "Check that you are set and everything is in the right place for go:"
@@ -58,11 +58,11 @@ cd "$GOPATH/dist"
 echo " "
 
 echo "cp the binary into /dist"
-cp "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-azure/bin/hello-go" .
+cp "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-azure-vm/bin/hello-go" .
 echo " "
 
 echo "cp the Dockerfile into /dist"
-cp "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-azure/build-push/Dockerfile" .
+cp "$GOPATH/src/github.com/JeffDeCola/hello-go-deploy-azure-vm/build-push/Dockerfile" .
 echo " "
 
 echo "List whats in the /dist directory"

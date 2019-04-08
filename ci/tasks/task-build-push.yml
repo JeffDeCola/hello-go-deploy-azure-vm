@@ -1,4 +1,4 @@
-# hello-go-deploy-azure task-build-push.yml
+# hello-go-deploy-azure-vm task-build-push.yml
 
 platform: linux
 
@@ -9,12 +9,12 @@ image_resource:
     tag: 1.7.1
 
 inputs:
-- name: hello-go-deploy-azure
+- name: hello-go-deploy-azure-vm
 
 outputs:
 - name: dist
 
 run:
-  path: ./hello-go-deploy-azure/ci/scripts/build-push.sh
+  path: ./hello-go-deploy-azure-vm/ci/scripts/build-push.sh
   # args: [-debug]
 

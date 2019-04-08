@@ -1,4 +1,4 @@
 #!/bin/bash
-# hello-go-deploy-azure destroy-pipeline.sh
+# hello-go-deploy-azure-vm destroy-pipeline.sh
 
-fly -t ci destroy-pipeline --pipeline hello-go-deploy-azure
+fly -t ci destroy-pipeline --pipeline hello-go-deploy-azure-vm

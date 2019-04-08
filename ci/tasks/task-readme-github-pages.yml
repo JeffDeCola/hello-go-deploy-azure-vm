@@ -1,4 +1,4 @@
-# hello-go-deploy-azure task-readme-github-pages.yml
+# hello-go-deploy-azure-vm task-readme-github-pages.yml
 
 platform: linux
 
@@ -9,12 +9,12 @@ image_resource:
     tag: 1.7.1
 
 inputs:
-- name: hello-go-deploy-azure
+- name: hello-go-deploy-azure-vm
 
 outputs:
-- name: hello-go-deploy-azure-updated
+- name: hello-go-deploy-azure-vm-updated
 
 run:
-  path: ./hello-go-deploy-azure/ci/scripts/readme-github-pages.sh
+  path: ./hello-go-deploy-azure-vm/ci/scripts/readme-github-pages.sh
   # args: [-debug]
 

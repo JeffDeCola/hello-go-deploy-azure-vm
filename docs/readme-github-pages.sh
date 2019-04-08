@@ -1,5 +1,5 @@
 #!/bin/sh
-# hello-go-deploy-azure readme-github-pages.sh
+# hello-go-deploy-azure-vm readme-github-pages.sh
 
 echo " "
 
@@ -16,7 +16,7 @@ else
     echo " "
 fi
 
-echo "cd up to /hello-go-deploy-azure directory"
+echo "cd up to /hello-go-deploy-azure-vm directory"
 echo " "
 cd ..
 

@@ -11,7 +11,7 @@
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
 `hello-go-deploy-azure-vm` _will test, build, push (to DockerHub) and deploy
-a long running "hello-world" Docker Image to Amazon Web Services (aws)._
+a long running "hello-world" Docker Image to Microsoft Azure VM._
 
 I also have other repos showing different deployments,
 
@@ -25,7 +25,7 @@ I also have other repos showing different deployments,
   * [hello-go-deploy-aks](https://github.com/JeffDeCola/hello-go-deploy-aks)
   * [hello-go-deploy-gke](https://github.com/JeffDeCola/hello-go-deploy-gke)
 * IaaS
-  * [hello-go-deploy-azure-vm](https://github.com/JeffDeCola/hello-go-deploy-azure-vm)
+  * [hello-go-deploy-amazon-ec2](https://github.com/JeffDeCola/hello-go-deploy-amazon-ec2)
   * [hello-go-deploy-azure-vm](https://github.com/JeffDeCola/hello-go-deploy-azure-vm)
   * [hello-go-deploy-gce](https://github.com/JeffDeCola/hello-go-deploy-gce)
 

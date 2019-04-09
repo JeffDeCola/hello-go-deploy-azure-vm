@@ -2,7 +2,6 @@
 
 ```text
 *** THE DEPLOY IS UNDER CONSTRUCTION - CHECK BACK SOON ***
-For testing the deploy, I'm using using mesos/marathon.
 ```
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/hello-go-deploy-azure-vm)](https://goreportcard.com/report/github.com/JeffDeCola/hello-go-deploy-azure-vm)
@@ -12,16 +11,23 @@ For testing the deploy, I'm using using mesos/marathon.
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
 `hello-go-deploy-azure-vm` _will test, build, push (to DockerHub) and deploy
-a long running "hello-world" Docker Image to Microsoft Azure._
+a long running "hello-world" Docker Image to Amazon Web Services (aws)._
 
 I also have other repos showing different deployments,
 
-* [hello-go-deploy-aws](https://github.com/JeffDeCola/hello-go-deploy-aws)
-* hello-go-deploy-azure-vm <- You are here!
-* [hello-go-deploy-gae](https://github.com/JeffDeCola/hello-go-deploy-gae)
-* [hello-go-deploy-gce](https://github.com/JeffDeCola/hello-go-deploy-gce)
-* [hello-go-deploy-gke](https://github.com/JeffDeCola/hello-go-deploy-gke)
-* [hello-go-deploy-marathon](https://github.com/JeffDeCola/hello-go-deploy-marathon)
+* PaaS
+  * [hello-go-deploy-aws-lambda](https://github.com/JeffDeCola/hello-go-deploy-aws-lambda)
+  * [hello-go-deploy-azure-functions](https://github.com/JeffDeCola/hello-go-deploy-azure-functions)
+  * [hello-go-deploy-gae](https://github.com/JeffDeCola/hello-go-deploy-gae)
+  * [hello-go-deploy-marathon](https://github.com/JeffDeCola/hello-go-deploy-marathon)
+* CaaS
+  * [hello-go-deploy-amazon-ecs](https://github.com/JeffDeCola/hello-go-deploy-amazon-ecs)
+  * [hello-go-deploy-aks](https://github.com/JeffDeCola/hello-go-deploy-aks)
+  * [hello-go-deploy-gke](https://github.com/JeffDeCola/hello-go-deploy-gke)
+* IaaS
+  * [hello-go-deploy-azure-vm](https://github.com/JeffDeCola/hello-go-deploy-azure-vm)
+  * [hello-go-deploy-azure-vm](https://github.com/JeffDeCola/hello-go-deploy-azure-vm)
+  * [hello-go-deploy-gce](https://github.com/JeffDeCola/hello-go-deploy-gce)
 
 The `hello-go-deploy-azure-vm`
 [Docker Image](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm)
@@ -44,16 +50,20 @@ To push a docker image you will need,
 
 * [DockerHub account](https://hub.docker.com/)
 
-To deploy to microsoft azure you will need,
+To deploy to aws you will need,
 
-* [microsoft azure](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/infrastructure-as-a-service/cloud-services-compute/microsoft-azure-cheat-sheet)
+* [microsoft azure](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/service-architectures/infrastructure-as-a-service/cloud-services/microsoft-azure-cheat-sheet)
 
 As a bonus, you can use Concourse CI to run the scripts,
 
 * [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
   (Optional)
 
-## RUN
+## EXAMPLES
+
+This repo may have a few examples. We will deploy example 1.
+
+### EXAMPLE 1
 
 To run from the command line,
 
@@ -78,11 +88,9 @@ Lets unit test the code,
 go test -cover ./... | tee /test/test_coverage.txt
 ```
 
-This script runs the above command
-[/test/unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/test/unit-tests.sh).
-
-This script runs the above command in concourse
-[/ci/scripts/unit-test.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/unit-tests.sh).
+There is a `unit-tests.sh` script to run the unit tests.
+There is also a script in the /ci folder to run the unit tests
+in concourse.
 
 ## STEP 2 - BUILD (DOCKER IMAGE)
 
@@ -126,11 +134,9 @@ You can test your dockerhub image,
 docker run jeffdecola/hello-go-deploy-azure-vm
 ```
 
-This script runs the above commands
-[/build-push/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/build-push/build-push.sh).
-
-This script runs the above commands in concourse
-[/ci/scripts/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/build-push.sh).
+There is a `build-push.sh` script to build and push to DockerHub.
+There is also a script in the /ci folder to build and push
+in concourse.
 
 ## STEP 3 - PUSH (TO DOCKERHUB)
 
@@ -142,7 +148,7 @@ If you are not logged in, you need to login to dockerhub,
 docker login
 ```
 
-Once logged in you can push,
+Once logged in you can push to DockerHub
 
 ```bash
 docker push jeffdecola/hello-go-deploy-azure-vm
@@ -151,30 +157,13 @@ docker push jeffdecola/hello-go-deploy-azure-vm
 Check you image at DockerHub. My image is located
 [https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm).
 
-This script runs the above commands
-[/build-push/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/build-push/build-push.sh).
+There is a `build-push.sh` script to build and push to DockerHub.
+There is also a script in the /ci folder to build and push
+in concourse.
 
-This script runs the above commands in concourse
-[/ci/scripts/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/build-push.sh).
+## STEP 4 - DEPLOY
 
-## STEP 4 - DEPLOY (TO AZURE)
-
-Refer to my
-[azure cheat sheet](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/infrastructure-as-a-service/cloud-services-compute/microsoft-azure-cheat-sheet),
-for more detailed information and a nice illustration.
-
-The goal is to deploy a ??? from a ???.
-
-There are ?? steps to deployment on azure,
-
-* tbd
-* tbd
-
-This script ???
-[/azure-deploy/????.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/azure-deploy/???.sh).
-
-Lastly, this script runs all of the above commands in concourse
-[/ci/scripts/deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/deploy.sh).
+tbd
 
 ## TEST, BUILT, PUSH & DEPLOY USING CONCOURSE (OPTIONAL)
 

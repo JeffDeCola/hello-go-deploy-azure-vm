@@ -17,16 +17,11 @@ else
     echo " "
 fi
 
-echo "The goal is to send the app.json file to marathon"
-echo "This is done in the marathon resource"
+echo "At start, you should be in a /tmp/build/xxxxx directory with one folder:"
+echo "   /hello-go-deploy-azure-vm"
 echo " "
 
-# List whats in the app.json file
-echo "List whats in the app.json file"
-cat hello-go-deploy-azure-vm/deploy/app.json
-echo " "
-
-echo "The concourse pipeline will put app.json to mesos/marathon"
+echo "This is a placeholder"
 echo " "
 
 echo "deploy.sh (END)"

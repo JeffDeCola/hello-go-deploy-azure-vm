@@ -1,0 +1,1 @@
+ok  	github.com/JeffDeCola/hello-go-deploy-azure-vm/example-01-azure-vm	(cached)	coverage: 0.0% of statements

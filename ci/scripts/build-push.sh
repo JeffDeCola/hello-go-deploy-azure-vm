@@ -42,7 +42,7 @@ mkdir -p src/github.com/JeffDeCola/
 cp -R ./hello-go-deploy-azure-vm src/github.com/JeffDeCola/.
 echo " "
 
-echo "cd src/github.com/JeffDeCola/hello-go-deploy-azure-vm/example-01-gce"
+echo "cd src/github.com/JeffDeCola/hello-go-deploy-azure-vm/example-01-azure-vm"
 cd src/github.com/JeffDeCola/hello-go-deploy-azure-vm/example-01-azure-vm
 echo " "
 

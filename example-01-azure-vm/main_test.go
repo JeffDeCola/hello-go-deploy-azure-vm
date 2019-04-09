@@ -1,4 +1,4 @@
-// hello-go-deploy-marathon main.go
+// hello-go-deploy-azure-vm main.go
 
 package main
 

@@ -1,165 +1,133 @@
+  _built with
+  [concourse](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/blob/master/ci-README.md)_
 
-# PREREQUISITES
+# OVERVIEW
 
-For this exercise I used go.  Feel free to use a language of your choice,
+Every 2 seconds this App will print,
 
-* [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
+```txt
+    INFO[0000] Let's Start this!
+    Hello everyone, count is: 1
+    Hello everyone, count is: 2
+    Hello everyone, count is: 3
+    etc...
+```
 
-To build a docker image you will need docker on your machine,
+## PREREQUISITES
 
-* [docker](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/orchestration/builds-deployment-containers/docker-cheat-sheet)
-
-To push a docker image you will need,
-
-* [DockerHub account](https://hub.docker.com/)
-
-To deploy to `microsoft azure vm` you will need,
-
-* [microsoft azure virtual machines (vm)](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/service-architectures/infrastructure-as-a-service/microsoft-azure-virtual-machines-cheat-sheet)
-
-As a bonus, you can use Concourse CI to run the scripts,
-
-* [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
-  (Optional)
-
-## EXAMPLES
-
-This repo may have a few examples. We will deploy example 1.
-
-### EXAMPLE 1
-
-To run from the command line,
+You will need the following go packages,
 
 ```bash
+go get -u -v github.com/sirupsen/logrus
+go get -u -v github.com/cweill/gotests/...
+```
+
+## SOFTWARE STACK
+
+* DEVELOPMENT
+  * [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
+* OPERATIONS
+  * [concourse/fly](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations/continuous-integration-continuous-deployment/concourse-cheat-sheet)
+    (optional)
+  * [docker](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations/orchestration/builds-deployment-containers/docker-cheat-sheet)
+* SERVICES
+  * [dockerhub](https://hub.docker.com/)
+  * microsoft azure vm
+
+## RUN
+
+To
+[run.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/blob/master/hello-go-deploy-azure-vm-code/run.sh),
+
+```bash
+cd hello-go-deploy-azure-vm-code
 go run main.go
 ```
 
-Every 2 seconds `hello-go-deploy-azure-vm` will print:
+To
+[create-binary.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/blob/master/hello-go-deploy-azure-vm-code/bin/create-binary.sh),
 
 ```bash
-Hello everyone, count is: 1
-Hello everyone, count is: 2
-Hello everyone, count is: 3
-etc...
+cd hello-go-deploy-azure-vm-code/bin
+go build -o hello-go ../main.go
+./hello-go
 ```
+
+This binary will not be used during a docker build
+since it creates it's own.
 
 ## STEP 1 - TEST
 
-Lets unit test the code,
+To create unit `_test` files,
 
 ```bash
-go test -cover ./... | tee /test/test_coverage.txt
+cd hello-go-deploy-azure-vm-code
+gotests -w -all main.go
 ```
 
-There is a `unit-tests.sh` script to run the unit tests.
-There is also a script in the /ci folder to run the unit tests
-in concourse.
+To run
+[unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/hello-go-deploy-azure-vm-code/test/unit-tests.sh),
+
+```bash
+go test -cover ./... | tee test/test_coverage.txt
+cat test/test_coverage.txt
+```
 
 ## STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)
 
-We will be using a multi-stage build using a Dockerfile.
-The end result will be a very small docker image around 13MB.
-
-```bash
-docker build -f build-push/Dockerfile -t jeffdecola/hello-go-deploy-azure-vm .
-```
-
-Obviously, replace `jeffdecola` with your DockerHub username.
-
-In stage 1, rather than copy a binary into a docker image (because
-that can cause issue), the Dockerfile will build the binary in the
+This docker image is built in two stages.
+In **stage 1**, rather than copy a binary into a docker image (because
+that can cause issues), the Dockerfile will build the binary in the
 docker image.
-
-If you open the DockerFile you can see it will get the dependencies and
-build the binary in go,
-
-```bash
-FROM golang:alpine AS builder
-RUN go get -d -v
-RUN go build -o /go/bin/hello-go-deploy-azure-vm main.go
-```
-
-In stage 2, the Dockerfile will copy the binary created in
-stage 1 and place into a smaller docker base image based
+In **stage 2**, the Dockerfile will copy this binary
+and place it into a smaller docker image based
 on `alpine`, which is around 13MB.
 
-You can check and test your docker image,
+To
+[build.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/blob/master/hello-go-deploy-azure-vm-code/build/build.sh)
+with a
+[Dockerfile](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/blob/master/hello-go-deploy-azure-vm-code/build/Dockerfile),
 
 ```bash
+cd hello-go-deploy-azure-vm-code/build
+docker build -f Dockerfile -t jeffdecola/hello-go-deploy-azure-vm .
+```
+
+You can check and test this docker image,
+
+```bash
+docker images jeffdecola/hello-go-deploy-azure-vm
 docker run --name hello-go-deploy-azure-vm -dit jeffdecola/hello-go-deploy-azure-vm
 docker exec -i -t hello-go-deploy-azure-vm /bin/bash
 docker logs hello-go-deploy-azure-vm
-docker images jeffdecola/hello-go-deploy-azure-vm:latest
+docker rm -f hello-go-deploy-azure-vm
 ```
-
-There is a `build-push.sh` script to build and push to DockerHub.
-There is also a script in the /ci folder to build and push
-in concourse.
 
 ## STEP 3 - PUSH (TO DOCKERHUB)
 
-Lets push your docker image to DockerHub.
-
-If you are not logged in, you need to login to dockerhub,
+You must be logged in to DockerHub,
 
 ```bash
 docker login
 ```
 
-Once logged in you can push to DockerHub
+To
+[push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/blob/master/hello-go-deploy-azure-vm-code/push/push.sh),
 
 ```bash
 docker push jeffdecola/hello-go-deploy-azure-vm
 ```
 
-Check you image at DockerHub. My image is located
-[https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm).
+Check the
+[hello-go-deploy-azure-vm docker image](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm)
+at DockerHub.
 
-There is a `build-push.sh` script to build and push to DockerHub.
-There is also a script in the /ci folder to build and push
-in concourse.
+## STEP 4 - DEPLOY (TO AZURE VM)
 
-## STEP 4 - DEPLOY
+_Coming soon._
 
-tbd
+## CONTINUOUS INTEGRATION & DEPLOYMENT
 
-## TEST, BUILT, PUSH & DEPLOY USING CONCOURSE (OPTIONAL)
-
-For fun, I use concourse to automate the above steps.
-
-A pipeline file [pipeline.yml](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/pipeline.yml)
-shows the entire ci flow. Visually, it looks like,
-
-![IMAGE - hello-go-deploy-azure-vm concourse ci pipeline - IMAGE](pics/hello-go-deploy-azure-vm-pipeline.jpg)
-
-The `jobs` and `tasks` are,
-
-* `job-readme-github-pages` runs task
-  [readme-github-pages.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/readme-github-pages.sh).
-* `job-unit-tests` runs task
-  [unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/unit-tests.sh).
-* `job-build-push` runs task
-  [build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/build-push.sh).
-* `job-deploy` runs task
-  [deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tree/master/ci/scripts/deploy.sh).
-
-The concourse `resources type` are,
-
-* `hello-go-deploy-azure-vm` uses a resource type
-  [docker-image](https://hub.docker.com/r/concourse/git-resource/)
-  to PULL a repo from github.
-* `resource-dump-to-dockerhub` uses a resource type
-  [docker-image](https://hub.docker.com/r/concourse/docker-image-resource/)
-  to PUSH a docker image to dockerhub.
-* `resource-marathon` users a resource type
-  [docker-image](https://hub.docker.com/r/ckaznocha/marathon-resource)
-  to DEPLOY the newly created docker image to marathon.
-* `resource-slack-alert` uses a resource type
-  [docker image](https://hub.docker.com/r/cfcommunity/slack-notification-resource)
-  that will notify slack on your progress.
-* `resource-repo-status` uses a resource type
-  [docker image](https://hub.docker.com/r/dpb587/github-status-resource)
-  that will update your git status for that particular commit.
-
-For more information on using concourse for continuous integration,
-refer to my cheat sheet on [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet).
+Refer to
+[ci-README.md](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/blob/master/ci-README.md)
+on how I automated the above steps using concourse.

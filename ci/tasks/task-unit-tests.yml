@@ -2,19 +2,19 @@
 
 platform: linux
 
+# DOCKER BASE IMAGE FOR TASKS (BASED ON ALPINE, A SMALLER LINUX DISTRIBUTION)
 image_resource:
   type: docker-image
   source:
     repository: golang
-    tag: 1.11
+    tag: 1.20.1
 
 inputs:
-- name: hello-go-deploy-azure-vm
+  - name: hello-go-deploy-azure-vm
 
 outputs:
-- name: coverage-results
+  - name: coverage-results
 
 run:
   path: ./hello-go-deploy-azure-vm/ci/scripts/unit-tests.sh
   # args: [-debug]
-  

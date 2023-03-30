@@ -17,11 +17,30 @@ else
     echo " "
 fi
 
-echo "At start, you should be in a /tmp/build/xxxxx directory with one folder:"
+echo "GOAL ----------------------------------------------------------------------------------"
+echo " "
+
+echo "The goal is to Deploy a docker image to Microsoft Azure VM"
+echo " "
+
+echo "CHECK THINGS --------------------------------------------------------------------------"
+echo " "
+
+echo "At start, you should be in a /tmp/build/xxxxx directory with two folders:"
 echo "   /hello-go-deploy-azure-vm"
 echo " "
 
-echo "This is a placeholder"
+echo "pwd is: $PWD"
+echo " "
+
+echo "List whats in the current directory"
+ls -la
+echo " "
+
+echo "DEPLOY ---------------------------------------------------------------------------------"
+echo " "
+
+echo "DEPOY - PLACEHOLDER - DEPLOY"
 echo " "
 
 echo "deploy.sh (END)"

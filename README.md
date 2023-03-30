@@ -1,19 +1,22 @@
-# hello-go-deploy-azure-vm
+# HELLO GO DEPLOY AZURE VM
+
+[![Tag Latest](https://img.shields.io/github/v/tag/jeffdecola/hello-go-deploy-azure-vm)](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/tags)
+[![Go Reference](https://pkg.go.dev/badge/github.com/JeffDeCola/hello-go-deploy-azure-vm.svg)](https://pkg.go.dev/github.com/JeffDeCola/hello-go-deploy-azure-vm)
+[![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/hello-go-deploy-azure-vm)](https://goreportcard.com/report/github.com/JeffDeCola/hello-go-deploy-azure-vm)
+[![codeclimate Maintainability](https://api.codeclimate.com/v1/badges/f37f4f30995de00721be/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/maintainability)
+[![codeclimate Issue Count](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/issues)
+[![Docker Pulls](https://badgen.net/docker/pulls/jeffdecola/hello-go-deploy-azure-vm?icon=docker&label=pulls)](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm/)
+[![MIT License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
+[![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
 
 ```text
 *** THE DEPLOY IS UNDER CONSTRUCTION - CHECK BACK SOON ***
 ```
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/hello-go-deploy-azure-vm)](https://goreportcard.com/report/github.com/JeffDeCola/hello-go-deploy-azure-vm)
-[![GoDoc](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-azure-vm?status.svg)](https://godoc.org/github.com/JeffDeCola/hello-go-deploy-azure-vm)
-[![Maintainability](https://api.codeclimate.com/v1/badges/f37f4f30995de00721be/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/maintainability)
-[![Issue Count](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/issues)
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
+_Deploy a "hello-world" docker image to
+Microsoft Azure VM._
 
-`hello-go-deploy-azure-vm` _will test, build, push (to DockerHub) and deploy
-a long running "hello-world" Docker Image to Microsoft Azure VM._
-
-I also have other repos showing different deployments,
+Other Services
 
 * PaaS
   * [hello-go-deploy-aws-elastic-beanstalk](https://github.com/JeffDeCola/hello-go-deploy-aws-elastic-beanstalk)
@@ -31,12 +34,19 @@ I also have other repos showing different deployments,
     **(You are here)**
   * [hello-go-deploy-gce](https://github.com/JeffDeCola/hello-go-deploy-gce)
 
-The `hello-go-deploy-azure-vm`
-[Docker Image](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm)
-on DockerHub.
+Table of Contents
 
-The `hello-go-deploy-azure-vm`
-[GitHub Webpage](https://jeffdecola.github.io/hello-go-deploy-azure-vm/).
+* ???
+
+Documentation and Reference
+
+* The
+  [hello-go-deploy-azure-vm docker image](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm)
+  on DockerHub
+* This repos
+  [github webpage](https://jeffdecola.github.io/hello-go-deploy-azure-vm/)
+  _built with
+  [concourse](https://github.com/JeffDeCola/hello-go-deploy-azure-vm/blob/master/ci-README.md)_
 
 ## PREREQUISITES
 

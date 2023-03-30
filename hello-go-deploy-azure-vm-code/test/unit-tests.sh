@@ -8,7 +8,8 @@ then
     echo "************************************************************************"
     echo "* unit-tests.sh -debug (START) *****************************************"
     echo "************************************************************************"
-    # set -x enables a mode of the shell where all executed commands are printed to the terminal.
+    # set -x enables a mode of the shell where all executed commands
+    # are printed to the terminal.
     set -x
     echo " "
 else
@@ -22,7 +23,7 @@ echo "If you need to generate _test files run"
 echo "   gotests -w -all main.go"
 echo " "
 
-echo "cd up to code"
+echo "cd up to code level"
 cd ..
 echo " "
 

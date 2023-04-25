@@ -6,7 +6,7 @@
 [![codeclimate Maintainability](https://api.codeclimate.com/v1/badges/f37f4f30995de00721be/maintainability)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/maintainability)
 [![codeclimate Issue Count](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/hello-go-deploy-azure-vm/issues)
 [![Docker Pulls](https://badgen.net/docker/pulls/jeffdecola/hello-go-deploy-azure-vm?icon=docker&label=pulls)](https://hub.docker.com/r/jeffdecola/hello-go-deploy-azure-vm/)
-[![MIT License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
+[![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://jeffdecola.mit-license.org)
 [![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
 
 ```text
